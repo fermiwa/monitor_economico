@@ -174,13 +174,15 @@ class _AnaliseGraficoScreenState extends State<AnaliseGraficoScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Histórico do Indicador: ${widget.indicador.nome}',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  widget.indicador.nome,
+                  style: const TextStyle(
+                    fontSize: 24, 
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 8),
-                Text('Período: ${widget.dataInicialStr} até ${widget.dataFinalStr}', textAlign: TextAlign.center),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20), 
 
                 Container(
                   height: 180,
@@ -189,15 +191,30 @@ class _AnaliseGraficoScreenState extends State<AnaliseGraficoScreen> {
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.blue.shade200),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.trending_up, size: 48, color: Colors.blue),
-                        SizedBox(height: 8),
+                        const Icon(Icons.trending_up, size: 48, color: Colors.blue),
+                        const SizedBox(height: 12),
+                        const Text(
+                          'Histórico do indicador processado com sucesso',
+                          style: TextStyle(
+                            color: Colors.blue, 
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 6),
                         Text(
-                          'Histórico do Indicador processado com sucesso',
-                          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                          'Período: ${widget.dataInicialStr} até ${widget.dataFinalStr}',
+                          style: TextStyle(
+                            color: Colors.blue.shade700,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
