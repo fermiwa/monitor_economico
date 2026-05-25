@@ -108,11 +108,61 @@ class _AnaliseGraficoScreenState extends State<AnaliseGraficoScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (snapshot.hasError) {
-            return Center(child: Text('Erro ao buscar dados: ${snapshot.error}', style: const TextStyle(color: Colors.red)));
+
+          // MENSAGENS DE ERRO PRO USUÁRIO
+
+          // erro 404 da API
+          if (snapshot.hasError || (snapshot.hasData && snapshot.data!.isEmpty)) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.info_outline, size: 60, color: Colors.orange.shade400),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Sem dados no período selecionado',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Por gentileza volte para a tela anterior e selecione outro período.',
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
           }
+
+          // API respondeu mas não tem dados naquele período selecioado
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('Nenhum dado no período selecionado.'));
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.info_outline, size: 60, color: Colors.orange.shade400),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Sem dados no período selecionado',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Por gentileza volte para a tela anterior e selecione outro período.',
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
           }
 
           final dadosBCB = snapshot.data!;
@@ -124,7 +174,7 @@ class _AnaliseGraficoScreenState extends State<AnaliseGraficoScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Série histórica do indicador: ${widget.indicador.nome}',
+                  'Histórico do Indicador: ${widget.indicador.nome}',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
@@ -146,7 +196,7 @@ class _AnaliseGraficoScreenState extends State<AnaliseGraficoScreen> {
                         Icon(Icons.trending_up, size: 48, color: Colors.blue),
                         SizedBox(height: 8),
                         Text(
-                          'Série Histórica Processada com Sucesso',
+                          'Histórico do Indicador processado com sucesso',
                           style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                         ),
                       ],
